@@ -12,80 +12,67 @@ For these examples to work, ensure that:
 python3 --version
 ```
 
-> Clone the repository and `cd` into the root folder
-
-> Create and activate virtual environment, and update pip
+* Clone the repository and `cd` into the root folder
+* Create and activate virtual environment, and update pip
 
 ```
 python3 -m venv .venv
 source .venv/bin/activate
 pip3 install pip --upgrade
 ```
-
-> Install playwright
+- Install playwright and playwright CLI
 
 ```
 pip3 install playwright
-```
-
-> Install playwright CLI
-
-```
 playwright install
 ```
 
-> Run the `zoom.py` robot
+- Run the code 
 
-```bash
+Note: `zoom.py` has been removed from this repo.
+
+```
 python3 zoom.py
 ```
 
-## Allow port for inbound access
-
-```
-#Allow
-firewall-cmd --zone=public --permanent --add-port=3000/tcp
-sudo firewall-cmd --zone=public --permanent --add-port=8080/tcp
-
-# Refresh
-firewall-cmd --reload
-```
-http://129.158.63.35:3000/export/doc
 
 # Installation and setup as API
 
-## Prerequisite
+- Clone the repository
 
-- Python3
-- Pip
-- Virtualenvironment
+ ```
+ git clone https://github.com/senthilsweb/playwright-bots.git
+ ```
 
-## Installation
+- Change directory to `zybots\docx`
+  
+```
+cd playwright-bots
+```
 
-1. Clone the repository
-   `git clone https://github.com/senthilsweb/playwright-bots.git`
+- Create virtual environment inside the project root
 
-1. Change directory to `zybots\docx`
-   `cd playwright-bots`
+```
+python3 -m venv .venv
+source .venv/bin/activate
+```
 
-1. Create virtual environment inside the project root
-   `virtualenv venv -p python3.7`
 
-1. Activate the virtual environment from the bin folder inside the **venv**
+- Go to project root folder and then Install dependencies
 
-`source ./venv/bin/activate`
+cd to root folder
 
-1 Go to project root folder and then Install dependencies
+```
+pip install -r requirements.txt
+```
 
-`cd to root folder`
+> Start the sever
 
-`pip install -r requirements.txt`
+```
+gunicorn resources.api:app -b 0.0.0.0:3000
+```
 
-1 Start the sever
-
-`gunicorn resources.api:app -b 127.0.0.1:3000`
-
-## API available in this sample code
+## RESTful APIs
 
 ### Schedule zoom meeting
 
@@ -117,3 +104,17 @@ http://129.158.63.35:3000/export/doc
 }
 ```
 
+
+
+## Miscellaneous
+
+### Allow port for inbound access in Oracle cloud
+
+```
+#Allow
+firewall-cmd --zone=public --permanent --add-port=3000/tcp
+sudo firewall-cmd --zone=public --permanent --add-port=8080/tcp
+
+# Refresh
+firewall-cmd --reload
+```
