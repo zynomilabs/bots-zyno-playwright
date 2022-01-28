@@ -14,5 +14,6 @@ app = falcon.App(middleware=falcon.CORSMiddleware(
     allow_origins='example.com', allow_credentials='*'))
 # Attach routes
 app.add_route('/', docxController(), suffix='ping')
+app.add_route('/students', docxController(), suffix='students')
 app.add_route('/export/doc', docxController())
 #app.add_route('/schedule/zoom', botController())

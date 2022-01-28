@@ -12,6 +12,8 @@
 # -----------------------------------------------------
 
 import json
+import pandas as pd
+import json
 
 from docxtpl import DocxTemplate
 import falcon
@@ -38,6 +40,23 @@ class docxController(object):
             doc = {
                 'message': "Pong"
             }
+            resp.status = falcon.HTTP_200
+        except Exception as e:
+            doc = {
+                'success': False,
+                'message': str(e)}
+            resp.status = falcon.HTTP_500
+
+        finally:    
+            resp.media = doc
+            resp.content_type = falcon.MEDIA_JSON
+    
+    def on_get_students(self, req, resp):
+        try:
+            logger.info(req.context)
+            df = Utils.read_excel('/opt/senthilnathan/bots-zyno-playwright/students.xlsx')
+
+            doc = df.to_json(orient="records")
             resp.status = falcon.HTTP_200
         except Exception as e:
             doc = {
